@@ -20,4 +20,15 @@ public class UserController {
         String result = userService.addUser(user);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/{userId}")
+    public User getUser(@PathVariable String userId) {
+        User user = userService.getUserById(userId);
+
+        if (user != null) {
+            return user;
+        } else {
+            throw new RuntimeException("User not found with ID: " + userId);
+        }
+    }
 }
