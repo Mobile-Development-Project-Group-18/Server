@@ -1,8 +1,14 @@
 package com.goshell.goshell.user;
 
+import com.goshell.goshell.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -15,20 +21,39 @@ public class UserController {
         this.userService = userService;
     }
 
+    //Register
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
+    public ResponseEntity<?> register(@RequestBody User user) {
         String result = userService.addUser(user);
-        return ResponseEntity.ok(result);
+
+        if (result.contains("User already exists")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+        }
+        return result.isEmpty()
+                ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missing field")
+                : ResponseEntity.created(URI.create("/users/" + result)).body("User registered successfully");
     }
 
+    //Get user's profile
     @GetMapping("/{userId}")
-    public User getUser(@PathVariable String userId) {
+    public ResponseEntity<?> getUser(@PathVariable String userId) {
         User user = userService.getUserById(userId);
 
         if (user != null) {
-            return user;
+            return ResponseEntity.ok(user);
         } else {
-            throw new RuntimeException("User not found with ID: " + userId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found with ID: " + userId);
         }
     }
+
+    //Get user's sell products
+    @GetMapping("/products/{userId}")
+    public ResponseEntity<List<Product>> getUserProducts(@PathVariable String userId) {
+        List<Product> products = userService.getUserProduct(userId);
+        return products.isEmpty()
+                ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList())
+                : ResponseEntity.ok(products);
+    }
+
 }
