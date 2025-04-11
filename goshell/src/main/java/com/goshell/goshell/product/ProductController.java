@@ -22,9 +22,9 @@ public class ProductController {
 
     //Add new product
     @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addProduct(@RequestBody Product product) {
-        return productService.addProduct(product);
+    public ResponseEntity<String> addProduct(@RequestBody Product product) {
+        String id = productService.addProduct(product);
+        return ResponseEntity.ok(id);
     }
 
     //Get all products

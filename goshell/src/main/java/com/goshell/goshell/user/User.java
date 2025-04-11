@@ -14,18 +14,21 @@ public class User {
     @NotEmpty
     private Boolean emailVerify;
 
-    private LocalDate createDate;
+    private Long createDate;
     private LocalDate dateOfBirth;
 
     private String avatar;
     private String address;
+
+    @NotEmpty
+    private String email;
 
     // No-argument constructor
     public User() {}
 
     // Constructor with all fields
     public User(String id, String firstName, String lastName, Boolean emailVerify,
-                LocalDate createDate, LocalDate dateOfBirth, String avatar, String address) {
+                Long createDate, LocalDate dateOfBirth, String avatar, String address, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -69,11 +72,9 @@ public class User {
         this.emailVerify = emailVerify;
     }
 
-//        public LocalDate getCreateDate() {
-//                return createDate;
-//        }
+    public Long getCreateDate() { return createDate;}
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(Long createDate) {
         this.createDate = createDate;
     }
 
@@ -100,4 +101,8 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getEmail(){return email;}
+
+    public void setEmail(String email){this.email = email;}
 }

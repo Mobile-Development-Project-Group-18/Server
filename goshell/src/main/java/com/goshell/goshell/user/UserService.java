@@ -68,7 +68,7 @@ public class UserService {
         List<Product> products = new ArrayList<>();
         try {
             CollectionReference productsRef = db.collection("products");
-            Query query = productsRef.whereEqualTo("seller", userId);
+            Query query = productsRef.whereEqualTo("sellerId", userId);
             ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
             for (QueryDocumentSnapshot document : querySnapshot.get().getDocuments()) {

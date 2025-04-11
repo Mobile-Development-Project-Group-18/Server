@@ -27,7 +27,7 @@ public class ProductService {
             String productId = docRef.getId();
             product.setId(productId);
             docRef.set(product).get();
-            return "Added product successfully!";
+            return product.getId();
         } catch (InterruptedException | ExecutionException e){
             e.printStackTrace();
             return "Error adding product" + e.getMessage();

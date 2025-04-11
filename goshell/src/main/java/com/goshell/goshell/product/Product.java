@@ -12,20 +12,26 @@ public class Product {
     @NotEmpty
     private String place;
     @NotEmpty
-    private String seller;
+    private String sellerId;
     private String image;
     private String type;
+    @NotEmpty
+    private Float price;
+    @NotEmpty
+    private Long createdAt;
 
     public Product(){}
 
-    public Product(String id, String name, String description, String place, String seller, String image, String type) {
+    public Product(String id, String name, String description, String place, String sellerId, String image, String type, Float price, Long createdAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.place = place;
-        this.seller = seller;
+        this.sellerId = sellerId;
         this.image = image;
         this.type = type;
+        this.price = price;
+        this.createdAt = createdAt;
     }
 
     // Getters
@@ -45,8 +51,8 @@ public class Product {
         return place;
     }
 
-    public String getSeller() {
-        return seller;
+    public String getSellerId() {
+        return sellerId;
     }
 
     public String getImage() {
@@ -55,6 +61,14 @@ public class Product {
 
     public String getType() {
         return type;
+    }
+
+    public Float getPrice(){
+        return price;
+    }
+
+    public Long getCreatedAt(){
+        return createdAt;
     }
 
     // Setters
@@ -74,8 +88,8 @@ public class Product {
         this.place = place;
     }
 
-    public void setSeller(String seller) {
-        this.seller = seller;
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
     }
 
     public void setImage(String image) {
@@ -84,5 +98,13 @@ public class Product {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setPrice(Float price){
+        this.price = price;
+    }
+
+    public void setCreatedAt(Long createdAt){
+        this.createdAt = createdAt;
     }
 }
